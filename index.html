@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Velthys RP - Chargement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --carbone:#151515; --rouge:#D9293E; --rouge-vif:#ff3b52; --ivoire:#F7F4EF;
+  --verre:rgba(12,12,16,.82); --trait:rgba(247,244,239,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#07070b;color:var(--ivoire);
+  font-family:"Inter","Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased;cursor:default;user-select:none}
+
+/* ---------- FOND ---------- */
+.scene{position:fixed;top:0;left:0;right:0;bottom:0;overflow:hidden}
+.fond{position:absolute;top:-6%;left:-6%;width:112%;height:112%;will-change:transform;-webkit-backface-visibility:hidden;
+  background:url("fond.jpg") center/cover no-repeat;
+  -webkit-animation:camera 46s ease-in-out infinite alternate;animation:camera 46s ease-in-out infinite alternate;
+}
+.fond:after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.22)}
+@-webkit-keyframes camera{0%{-webkit-transform:scale(1.02) translate3d(-2.5%,0,0)}100%{-webkit-transform:scale(1.12) translate3d(2.5%,-1%,0)}}
+@keyframes camera{0%{transform:scale(1.02) translate3d(-2.5%,0,0)}100%{transform:scale(1.12) translate3d(2.5%,-1%,0)}}
+
+/* teinte rouge Velthys + vignettage */
+.teinte{position:absolute;top:0;left:0;right:0;bottom:0;
+  background:
+   radial-gradient(ellipse 55% 50% at 50% 42%,rgba(217,41,62,.20),transparent 70%),
+   linear-gradient(180deg,rgba(7,7,11,.55) 0%,rgba(7,7,11,0) 28%,rgba(7,7,11,0) 55%,rgba(7,7,11,.92) 100%),
+   radial-gradient(ellipse 120% 90% at 50% 50%,transparent 55%,rgba(0,0,0,.75) 100%)}
+.pulse{will-change:transform,opacity;position:absolute;left:50%;top:41%;width:90vh;height:90vh;margin:-45vh 0 0 -45vh;border-radius:50%;
+  background:radial-gradient(circle,rgba(217,41,62,.30) 0%,rgba(217,41,62,.08) 40%,transparent 68%);
+  -webkit-animation:respire 5s ease-in-out infinite;animation:respire 5s ease-in-out infinite}
+@-webkit-keyframes respire{0%,100%{opacity:.55;-webkit-transform:scale(.94)}50%{opacity:1;-webkit-transform:scale(1.04)}}
+@keyframes respire{0%,100%{opacity:.55;transform:scale(.94)}50%{opacity:1;transform:scale(1.04)}}
+
+/* brume qui glisse */
+.brume{will-change:transform;position:absolute;left:-50%;width:200%;height:40%;bottom:8%;opacity:.35;
+  background:
+   radial-gradient(ellipse 18% 40% at 15% 60%,rgba(170,180,220,.22),transparent 70%),
+   radial-gradient(ellipse 22% 45% at 45% 55%,rgba(170,180,220,.18),transparent 70%),
+   radial-gradient(ellipse 18% 40% at 75% 65%,rgba(170,180,220,.20),transparent 70%);
+  -webkit-animation:brume 60s linear infinite;animation:brume 60s linear infinite}
+.brume.b2{bottom:22%;opacity:.22;-webkit-animation-duration:90s;animation-duration:90s;-webkit-animation-direction:reverse;animation-direction:reverse}
+@-webkit-keyframes brume{from{-webkit-transform:translate3d(0,0,0)}to{-webkit-transform:translate3d(25%,0,0)}}
+@keyframes brume{from{transform:translate3d(0,0,0)}to{transform:translate3d(25%,0,0)}}
+
+/* eclair */
+.eclair{position:absolute;top:0;left:0;right:0;bottom:0;background:#cfd8ff;opacity:0;pointer-events:none;display:none}
+.eclair.on{display:block}
+.eclair.on{-webkit-animation:flash 1.1s ease-out;animation:flash 1.1s ease-out}
+@-webkit-keyframes flash{0%{opacity:0}6%{opacity:.16}12%{opacity:.02}18%{opacity:.12}100%{opacity:0}}
+@keyframes flash{0%{opacity:0}6%{opacity:.16}12%{opacity:.02}18%{opacity:.12}100%{opacity:0}}
+
+canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+
+/* ---------- LOGO ---------- */
+.centre{position:absolute;left:0;right:0;top:6vh;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center}
+.logo-wrap{will-change:transform;position:relative;width:52vh;height:52vh;
+  -webkit-animation:arrivee 1.6s cubic-bezier(.2,.8,.2,1) both, flotte 7s ease-in-out 1.6s infinite;
+  animation:arrivee 1.6s cubic-bezier(.2,.8,.2,1) both, flotte 7s ease-in-out 1.6s infinite}
+.logo-wrap img{position:relative;width:100%;height:100%;display:block}
+.halo{position:absolute;top:-6%;left:-6%;width:112%;height:112%;border-radius:50%;will-change:opacity;
+  background:radial-gradient(circle,rgba(255,59,82,.55) 45%,rgba(217,41,62,.18) 58%,transparent 70%);
+  -webkit-animation:lueur 4s ease-in-out infinite;animation:lueur 4s ease-in-out infinite}
+@-webkit-keyframes lueur{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes lueur{0%,100%{opacity:.45}50%{opacity:1}}
+@-webkit-keyframes arrivee{0%{opacity:0;-webkit-transform:scale(.82)}100%{opacity:1;-webkit-transform:scale(1)}}
+@keyframes arrivee{0%{opacity:0;transform:scale(.82)}100%{opacity:1;transform:scale(1)}}
+@-webkit-keyframes flotte{0%,100%{-webkit-transform:translateY(0)}50%{-webkit-transform:translateY(-1.2vh)}}
+@keyframes flotte{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2vh)}}
+/* reflet qui balaie le logo (masque = forme du logo) */
+.reflet{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;
+  -webkit-mask-image:url("logo.png");-webkit-mask-size:100% 100%;mask-image:url("logo.png");mask-size:100% 100%;
+  overflow:hidden}
+.reflet:before{content:"";position:absolute;top:-10%;bottom:-10%;width:35%;left:0;will-change:transform;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);
+  -webkit-transform:translateX(-120%);transform:translateX(-120%);
+  -webkit-animation:reflet 6.5s ease-in-out 2.2s infinite;animation:reflet 6.5s ease-in-out 2.2s infinite}
+@-webkit-keyframes reflet{0%{-webkit-transform:translateX(-120%)}35%,100%{-webkit-transform:translateX(320%)}}
+@keyframes reflet{0%{transform:translateX(-120%)}35%,100%{transform:translateX(320%)}}
+
+.devise{margin-top:1.2vh;font-family:"Rajdhani",sans-serif;font-weight:600;font-size:2.1vh;letter-spacing:.55em;text-transform:uppercase;
+  color:rgba(247,244,239,.82);text-shadow:0 0 12px rgba(0,0,0,.9);
+  -webkit-animation:monte 1.2s ease-out .9s both;animation:monte 1.2s ease-out .9s both}
+.devise b{color:var(--rouge);font-weight:700;margin:0 .6em}
+@-webkit-keyframes monte{from{opacity:0;-webkit-transform:translateY(10px)}to{opacity:1;-webkit-transform:none}}
+@keyframes monte{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- HAUT ---------- */
+.haut{position:absolute;top:3vh;left:3.2vw;right:3.2vw;display:-webkit-flex;display:flex;-webkit-justify-content:space-between;justify-content:space-between;
+  font-family:"Rajdhani",sans-serif;font-weight:600;font-size:1.6vh;letter-spacing:.3em;text-transform:uppercase;color:rgba(247,244,239,.7);
+  -webkit-animation:monte 1s ease-out .4s both;animation:monte 1s ease-out .4s both}
+.pastille{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center}
+.pastille i{display:inline-block;width:.9vh;height:.9vh;border-radius:50%;background:var(--rouge);margin-right:1vh;box-shadow:0 0 10px var(--rouge);
+  -webkit-animation:clignote 1.6s ease-in-out infinite;animation:clignote 1.6s ease-in-out infinite}
+@-webkit-keyframes clignote{50%{opacity:.25}}@keyframes clignote{50%{opacity:.25}}
+
+/* ---------- BAS ---------- */
+.bas{position:absolute;left:3.2vw;right:3.2vw;bottom:4vh;display:-webkit-flex;display:flex;-webkit-align-items:flex-end;align-items:flex-end;
+  -webkit-animation:monte 1.2s ease-out 1.2s both;animation:monte 1.2s ease-out 1.2s both}
+.carte{background:var(--verre);border:1px solid var(--trait);border-radius:1.2vh;padding:1.8vh 2.2vh;
+  box-shadow:0 1.5vh 4vh rgba(0,0,0,.45)}
+.info{width:24%;min-width:220px}
+.lbl{font-family:"Rajdhani",sans-serif;font-weight:700;font-size:1.35vh;letter-spacing:.3em;text-transform:uppercase;color:var(--rouge)}
+.val{font-family:"Rajdhani",sans-serif;font-weight:600;font-size:2.3vh;margin:.2vh 0 1.1vh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.val:last-child{margin-bottom:0}
+.progres{-webkit-flex:1;flex:1;margin:0 2.4vw}
+.ligne{display:-webkit-flex;display:flex;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:baseline;align-items:baseline;margin-bottom:1.1vh}
+#statut{font-size:1.75vh;color:rgba(247,244,239,.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:80%}
+#pct{font-family:"Rajdhani",sans-serif;font-weight:700;font-size:3.2vh;color:var(--ivoire)}
+.barre{position:relative;height:.7vh;border-radius:1vh;background:rgba(247,244,239,.10);overflow:visible}
+.barre i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:1vh;
+  background:linear-gradient(90deg,#8e1424,var(--rouge) 60%,var(--rouge-vif));box-shadow:0 0 14px rgba(255,59,82,.7);
+  -webkit-transition:width .5s ease;transition:width .5s ease}
+.barre i:after{content:"";position:absolute;right:-.6vh;top:50%;width:1.6vh;height:1.6vh;margin-top:-.8vh;border-radius:50%;
+  background:#fff;box-shadow:0 0 10px #fff,0 0 22px var(--rouge-vif)}
+.barre s{position:absolute;top:0;bottom:0;left:0;right:0;border-radius:1vh;overflow:hidden;text-decoration:none}
+.barre s:before{content:"";position:absolute;top:0;bottom:0;width:30%;left:-30%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  -webkit-animation:balaye 2.2s linear infinite;animation:balaye 2.2s linear infinite}
+@-webkit-keyframes balaye{to{left:100%}}@keyframes balaye{to{left:100%}}
+#fichier{margin-top:1vh;font-size:1.35vh;color:rgba(247,244,239,.45);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.astuce{width:28%;min-width:240px;position:relative;overflow:hidden}
+#astuce{font-size:1.7vh;line-height:1.5;color:rgba(247,244,239,.9);min-height:5.1vh;margin-top:.6vh;
+  -webkit-transition:opacity .6s,-webkit-transform .6s;transition:opacity .6s,transform .6s}
+#astuce.sort{opacity:0;-webkit-transform:translateY(8px);transform:translateY(8px)}
+.points{margin-top:1.2vh;display:-webkit-flex;display:flex}
+.points span{width:1.6vh;height:.35vh;border-radius:1vh;background:rgba(247,244,239,.18);margin-right:.6vh;-webkit-transition:all .4s;transition:all .4s}
+.points span.on{width:3.2vh;background:var(--rouge)}
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="fond"></div>
+  <div class="brume"></div>
+  <div class="teinte"></div>
+  <div class="pulse"></div>
+  <canvas id="pluie"></canvas>
+  <canvas id="braises"></canvas>
+  <div class="eclair" id="eclair"></div>
+</div>
+
+<div class="haut">
+  <div class="pastille"><i></i>Serveur Semi-RP français</div>
+  <div id="horloge"></div>
+</div>
+
+<div class="centre">
+  <div class="logo-wrap"><div class="halo"></div><img src="logo.png" alt="Velthys RP"><div class="reflet"></div></div>
+  <div class="devise">Une ville<b>·</b>Des histoires<b>·</b>Votre rôle</div>
+</div>
+
+<div class="bas">
+  <div class="carte info">
+    <div class="lbl">Carte</div><div class="val" id="map">Chargement...</div>
+    <div class="lbl">Places</div><div class="val" id="places">-</div>
+  </div>
+  <div class="carte progres">
+    <div class="ligne"><div id="statut">Connexion au serveur...</div><div id="pct">0%</div></div>
+    <div class="barre"><s></s><i id="prog"></i></div>
+    <div id="fichier">&nbsp;</div>
+  </div>
+  <div class="carte astuce">
+    <div class="lbl">Le saviez-vous ?</div>
+    <div id="astuce"></div>
+    <div class="points" id="points"></div>
+  </div>
+</div>
+
+<script>
+/* ===== Astuces (a modifier librement) ===== */
+var ASTUCES = [
+  "Appuie sur F4 pour choisir ton métier et acheter des objets.",
+  "Ton téléphone : compose le 17 pour la police, le 15 pour le médecin.",
+  "Ton sac à dos s'ouvre avec un clic droit quand tu l'as en main.",
+  "Respecte le roleplay : ton personnage n'est pas toi.",
+  "Le métagaming et le freekill sont interdits.",
+  "Un souci avec un joueur ? Contacte un membre du staff."
+];
+
+/* ===== Horloge ===== */
+function horloge(){var d=new Date(),h=("0"+d.getHours()).slice(-2),m=("0"+d.getMinutes()).slice(-2);document.getElementById("horloge").textContent=h+":"+m}
+horloge();setInterval(horloge,10000);
+
+/* ===== Astuces qui defilent ===== */
+(function(){
+  var el=document.getElementById("astuce"),pts=document.getElementById("points"),i=0,n=ASTUCES.length;
+  for(var k=0;k<n;k++){pts.appendChild(document.createElement("span"))}
+  function montre(){el.textContent=ASTUCES[i];var s=pts.children;for(var k=0;k<n;k++)s[k].className=(k===i?"on":"")}
+  montre();
+  setInterval(function(){el.className="sort";setTimeout(function(){i=(i+1)%n;montre();el.className=""},600)},7000);
+})();
+
+/* ===== Progression (API de chargement GMod) ===== */
+var total=0,besoin=0,affiche=0,cible=0,fini=false;
+function maj(){ if(total>0){cible=Math.max(cible,(1-besoin/total)*92)} }
+function anime(){
+  if(!fini && cible<88){cible+= (total>0?0.004:0.03)}   // avance doucement meme sans infos
+  affiche+= (cible-affiche)*0.06;
+  var p=Math.min(100,affiche);
+  document.getElementById("prog").style.width=p+"%";
+  document.getElementById("pct").textContent=Math.floor(p)+"%";
+  requestAnimationFrame(anime);
+}
+requestAnimationFrame(anime);
+
+function GameDetails(servername,serverurl,mapname,maxplayers,steamid,gamemode){
+  if(mapname)document.getElementById("map").textContent=mapname;
+  if(maxplayers)document.getElementById("places").textContent=maxplayers+" joueurs max";
+}
+function SetFilesTotal(n){total=n}
+function SetFilesNeeded(n){besoin=n;maj()}
+function DownloadingFile(f){
+  document.getElementById("statut").textContent="Téléchargement des ressources";
+  document.getElementById("fichier").textContent=String(f).replace(/^.*[\\\/]/,"");
+}
+var TRAD={"Retrieving server info":"Récupération des infos du serveur","Sending client info...":"Envoi des infos client...",
+  "Client info sent!":"Infos client envoyées","Mounting Addons":"Montage des addons","Workshop Complete":"Workshop terminé",
+  "Received all Lua files we needed!":"Scripts reçus","Starting Lua...":"Démarrage du jeu...","Lua Started!":"Presque prêt...",
+  "Loading Lua":"Chargement des scripts","Parsing Game Info":"Lecture des infos du jeu"};
+function SetStatusChanged(s){
+  var t=TRAD[s]; if(!t){ if(/^Downloading/i.test(s))t="Téléchargement du Workshop..."; else if(/^Loading/i.test(s))t="Chargement..."; else t=s; }
+  document.getElementById("statut").textContent=t;
+  if(/Starting Lua|Lua Started|Sending client info/i.test(s)){cible=Math.max(cible,95)}
+  if(/Lua Started/i.test(s)){fini=true;cible=100}
+}
+
+/* ===== Braises ===== */
+(function(){
+  var c=document.getElementById("braises"),x=c.getContext("2d"),W,H,P=[];
+  function taille(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+  taille();window.addEventListener("resize",taille);
+  function nouvelle(init){return{x:Math.random()*W,y:init?Math.random()*H:H+20,r:Math.random()*2.2+.6,
+    vy:-(Math.random()*.7+.35),vx:(Math.random()-.5)*.35,a:0,amax:Math.random()*.7+.3,ph:Math.random()*6.28,vie:0}}
+  var spr=document.createElement("canvas");spr.width=spr.height=64;var sx=spr.getContext("2d");
+  var sg=sx.createRadialGradient(32,32,0,32,32,32);sg.addColorStop(0,"rgba(255,150,120,1)");sg.addColorStop(.35,"rgba(217,41,62,.6)");sg.addColorStop(1,"rgba(217,41,62,0)");
+  sx.fillStyle=sg;sx.fillRect(0,0,64,64);
+  for(var i=0;i<60;i++)P.push(nouvelle(true));
+  function boucle(){
+    x.clearRect(0,0,W,H);x.globalCompositeOperation="lighter";
+    for(var i=0;i<P.length;i++){var p=P[i];p.vie++;p.ph+=.03;
+      p.x+=p.vx+Math.sin(p.ph)*.35;p.y+=p.vy;p.a=Math.min(p.amax,p.a+.01);
+      var scint=.6+.4*Math.sin(p.ph*3);
+      var t=p.r*10;x.globalAlpha=p.a*scint;x.drawImage(spr,p.x-t/2,p.y-t/2,t,t);
+      if(p.y<-30)P[i]=nouvelle(false);
+    }
+    x.globalAlpha=1;requestAnimationFrame(boucle);
+  }
+  boucle();
+})();
+
+/* ===== Pluie fine ===== */
+(function(){
+  var c=document.getElementById("pluie"),x=c.getContext("2d"),W,H,G=[];
+  function taille(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+  taille();window.addEventListener("resize",taille);
+  for(var i=0;i<140;i++)G.push({x:Math.random()*1.2,y:Math.random(),l:Math.random()*.03+.015,v:Math.random()*.012+.012,a:Math.random()*.25+.08});
+  function boucle(){
+    x.clearRect(0,0,W,H);x.lineWidth=1;x.strokeStyle="rgba(190,200,235,.18)";x.beginPath();
+    for(var i=0;i<G.length;i++){var g=G[i];g.y+=g.v;g.x-=g.v*.18;if(g.y>1.05){g.y=-.05;g.x=Math.random()*1.2}
+      x.moveTo(g.x*W,g.y*H);x.lineTo((g.x-g.l*.18)*W,(g.y+g.l)*H)}
+    x.stroke();
+    requestAnimationFrame(boucle);
+  }
+  boucle();
+})();
+
+/* ===== Eclairs de temps en temps ===== */
+(function(){
+  var e=document.getElementById("eclair");
+  function suivant(){setTimeout(function(){e.className="eclair";void e.offsetWidth;e.className="eclair on";setTimeout(function(){e.className="eclair"},1200);suivant()},9000+Math.random()*14000)}
+  suivant();
+})();
+</script>
+</body>
+</html>
